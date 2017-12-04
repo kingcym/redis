@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import com.myredis.demo.service.RedissonDistributedLocker;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
 public class RedisApplicationTests {
 
 	@Autowired
-	StringRedisTemplate redisTemplate;
+	RedisTemplate redisTemplate;
 	@Autowired
 	Redisson redisson;
 	@Autowired
@@ -65,9 +66,10 @@ public class RedisApplicationTests {
 
 	@Test
 	public void contextLoads12() {
-		redisTemplate.opsForValue().set("22","AAAA");
-		redisTemplate.delete("22");
-		System.out.println(redisTemplate.opsForValue().get("22"));
+
+		redisTemplate.opsForValue().set(111,"222");
+		System.out.println(redisTemplate.opsForValue().get(111));
+
 
 	}
 
