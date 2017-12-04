@@ -1,7 +1,11 @@
 package com.myredis.demo.Controler;
 
+import com.myredis.demo.pojo.Person;
+import com.myredis.demo.service.MyCacheService;
 import com.myredis.demo.service.RedissonDistributedLocker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 public class RedisMasterTest {
     @Autowired
     RedissonDistributedLocker redissonDistributedLocker;
+    @Autowired
+    MyCacheService cacheService;
 
     @RequestMapping(value = "/a", method = RequestMethod.GET)
     public String saveHiddenDangerInfo(Integer i) {
@@ -51,4 +57,12 @@ public class RedisMasterTest {
 
         return "ss" + i;
     }
+
+    @RequestMapping("/put")
+    public void put() {
+        Person person = new Person();
+        person.setId(1);
+        cacheService.save(person);
+    }
+
 }

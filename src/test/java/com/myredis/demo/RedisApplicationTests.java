@@ -1,6 +1,8 @@
 package com.myredis.demo;
 
+import com.myredis.demo.pojo.Person;
 import com.myredis.demo.runable.PrintTask;
+import com.myredis.demo.service.MyCacheService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.redisson.Redisson;
@@ -30,6 +32,8 @@ public class RedisApplicationTests {
 	Redisson redisson;
 	@Autowired
 	RedissonDistributedLocker edissonDistributedLocker;
+	@Autowired
+	MyCacheService cacheService;
 
 	//原理请参考http://www.jianshu.com/p/de5a69622e49
 	@Test
@@ -66,10 +70,13 @@ public class RedisApplicationTests {
 
 	@Test
 	public void contextLoads12() {
+		Person person = new Person();
+		person.setId(1);
+		String save = cacheService.save(person);
+		System.out.println(save);
 
-		redisTemplate.opsForValue().set(111,"222");
-		System.out.println(redisTemplate.opsForValue().get(111));
-
+		String save1 = cacheService.save(person);
+		System.out.println(save1);
 
 	}
 
